@@ -1326,9 +1326,9 @@ Name: count, dtype: int64</code></pre>
 <li>Marked at fair value at time <span class="math inline">T</span>, the order earns <span class="math inline">(P_a - P_T)\,\mathbf{1}\{\tau \le T\}</span> — nothing if it never fills</li>
 </ul>
 <p><strong>Assumption:</strong> fair value is a <strong>martingale</strong> — <span class="math inline">E[P_t \mid \mathcal{F}_s] = P_s</span> for <span class="math inline">s \le t</span>, where <span class="math inline">\mathcal{F}_s</span> is everything known at time <span class="math inline">s</span>, including our own fills. No predictable drift. (Module 9 makes this precise.)</p>
-<p><strong>Tool:</strong> the <strong>optional stopping theorem</strong> — a martingale stays a fair game when you evaluate it at a bounded stopping time instead of a fixed one. <span class="math inline">\tau \wedge T</span> qualifies, because whether we’ve been filled yet is known at every instant. Two consequences we’ll use:</p>
+<p><strong>Tool:</strong> the <strong>optional stopping theorem</strong>. Two consequences we’ll use:</p>
 <p><span class="math display">
-E[P_T \mid \mathcal{F}_\tau] = P_\tau \ \text{ on } \{\tau \le T\}, \qquad E[P_{\tau \wedge T}] = P_0
+\underbrace{E[P_T \mid \mathcal{F}_\tau] = P_\tau \ \text{ on } \{\tau \le T\}}_{\sigma = \tau,\ \rho = T}, \qquad \underbrace{E[P_{\tau \wedge T}] = P_0}_{\sigma = 0,\ \rho = \tau \wedge T}
 </span></p>
 </section>
 <section id="decomposing-a-limit-orders-expected-value-the-math" class="slide level2">
@@ -1341,7 +1341,7 @@ E\big[(P_a - P_T)\,\mathbf{1}\{\tau \le T\}\big]
 &amp;= E\Big[\mathbf{1}\{\tau \le T\}\,\big(P_a - E[P_T \mid \mathcal{F}_\tau]\big)\Big]
 &amp;&amp; P_a \text{ and } \mathbf{1}\{\tau \le T\} \text{ are known at } \tau \\
 &amp;= E\big[\mathbf{1}\{\tau \le T\}\,(P_a - P_\tau)\big]
-&amp;&amp; \text{optional stopping} \\
+&amp;&amp; \text{optional stopping theorem (two-stopping-time form; beyond our scope today)} \\
 &amp;= P(\tau \le T)\,\big(P_a - E[P_\tau \mid \tau \le T]\big)
 &amp;&amp; \text{iterated expectations: condition on being filled} \\
 &amp;= \underbrace{P(\tau \le T)}_{\text{fill probability}} \times \Big[\,\underbrace{(P_a - P_0)}_{\text{quoted edge}} - \underbrace{\big(E[P_\tau \mid \tau \le T] - P_0\big)}_{\text{adverse selection}}\,\Big]

@@ -166,10 +166,10 @@ Rest a limit **sell** for one share at price $P_a$, above the best ask.
 
 **Assumption:** fair value is a **martingale** — $E[P_t \mid \mathcal{F}_s] = P_s$ for $s \le t$, where $\mathcal{F}_s$ is everything known at time $s$, including our own fills. No predictable drift. (Module 9 makes this precise.)
 
-**Tool:** the **optional stopping theorem** — a martingale stays a fair game when you evaluate it at a bounded stopping time instead of a fixed one. $\tau \wedge T$ qualifies, because whether we've been filled yet is known at every instant. Two consequences we'll use:
+**Tool:** the **optional stopping theorem**. Two consequences we'll use:
 
 $$
-E[P_T \mid \mathcal{F}_\tau] = P_\tau \ \text{ on } \{\tau \le T\}, \qquad E[P_{\tau \wedge T}] = P_0
+\underbrace{E[P_T \mid \mathcal{F}_\tau] = P_\tau \ \text{ on } \{\tau \le T\}}_{\sigma = \tau,\ \rho = T}, \qquad \underbrace{E[P_{\tau \wedge T}] = P_0}_{\sigma = 0,\ \rho = \tau \wedge T}
 $$
 
 ## Decomposing a Limit Order's Expected Value: The Math
@@ -182,7 +182,7 @@ E\big[(P_a - P_T)\,\mathbf{1}\{\tau \le T\}\big]
 &= E\Big[\mathbf{1}\{\tau \le T\}\,\big(P_a - E[P_T \mid \mathcal{F}_\tau]\big)\Big]
 && P_a \text{ and } \mathbf{1}\{\tau \le T\} \text{ are known at } \tau \\
 &= E\big[\mathbf{1}\{\tau \le T\}\,(P_a - P_\tau)\big]
-&& \text{optional stopping} \\
+&& \text{optional stopping theorem (two-stopping-time form; beyond our scope today)} \\
 &= P(\tau \le T)\,\big(P_a - E[P_\tau \mid \tau \le T]\big)
 && \text{iterated expectations: condition on being filled} \\
 &= \underbrace{P(\tau \le T)}_{\text{fill probability}} \times \Big[\,\underbrace{(P_a - P_0)}_{\text{quoted edge}} - \underbrace{\big(E[P_\tau \mid \tau \le T] - P_0\big)}_{\text{adverse selection}}\,\Big]
